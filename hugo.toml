@@ -1,0 +1,22 @@
+baseURL = 'https://your-site.netlify.app'
+languageCode = 'en-us'
+title = 'Smart Finance Guide'
+theme = 'PaperMod'
+
+[params]
+  description = 'Expert insights on personal finance, insurance, and smart money decisions.'
+  customHead = '<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_PUBLISHER_ID" crossorigin="anonymous"></script>'
+  
+  [params.homeInfoParams]
+    Title = "Smart Finance Guide"
+    Content = "Your trusted source for personal finance tips, insurance guides, and smart money decisions."
+
+[markup.goldmark.renderer]
+  unsafe = true
+
+[menu]
+  [[menu.main]]
+    identifier = "about"
+    name = "About"
+    url = "/about/"
+    weight = 10

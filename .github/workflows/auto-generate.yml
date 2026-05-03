@@ -1,0 +1,32 @@
+name: Auto-Generate Content
+
+on:
+  schedule:
+    - cron: '0 */6 * * *'  # Every 6 hours
+  workflow_dispatch:  # Allow manual trigger
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: Install dependencies
+        run: pip install -r automation/requirements.txt
+      
+      - name: Generate content with Groq (free tier: 14400 req/day)
+        env:
+          AI_BACKEND: groq
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+        run: python automation/generate_content.py
+      
+      - name: Commit and push
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Auto-generate content [skip ci]"
+          file_pattern: "content/posts/*.md"
